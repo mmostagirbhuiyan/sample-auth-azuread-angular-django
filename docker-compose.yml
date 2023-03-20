@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+
+  reverse-proxy:
+    build:
+      context: ./nginx
+    container_name: ${PROJECT_NAME}--nginx
+    ports:
+      - '8000:8000'
+      - '4200:80'
+    volumes:
+      - static_data:/backend/static
+    depends_on:
+      - django-api
+      - angular-apache2
+
+  angular-apache2:
+    build:
+      context: ./frontend
+    container_name: ${PROJECT_NAME}--angular
+    ports:
+      - '80'
+    volumes:
+      - ./frontend/dist/frontend:/var/www/html/dist
+      - ./frontend/000-default.conf:/etc/apache2/sites-available/000-default.conf
+
+  django-api:
+    build:
+      context: ./backend
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    container_name: ${PROJECT_NAME}--django
+    ports:
+      - '8000'
+    volumes:
+      - ./backend:/backend
+
+volumes:
+  static_data:
