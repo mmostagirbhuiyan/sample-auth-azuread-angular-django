@@ -1,0 +1,13 @@
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}
+
+.btn-svg{
+  border: none !important;
+  background-color: transparent !important;
+  outline: none
+}
+svg {
+  width: 30px;
+}

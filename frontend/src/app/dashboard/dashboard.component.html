@@ -1,0 +1,30 @@
+<div class="dashboard-container">
+  <h2>Profile Component</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="first_name" required />
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last_name" required />
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Role</mat-label>
+      <mat-select [compareWith]="compareFunction" formControlName="role" required>
+        <mat-option *ngFor="let role of roles" [value]="role.value">
+          {{role.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </form>
+  <br>
+  <button mat-raised-button color="danger" routerLink="/test">Test</button>
+  <br>
+  <br>
+  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+</div>

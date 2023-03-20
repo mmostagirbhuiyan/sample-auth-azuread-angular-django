@@ -1,0 +1,19 @@
+<div class="login-container">
+  <h2>Login Component</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input matInput placeholder="Username" formControlName="username" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" formControlName="password" required>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loading">Login</button> or
+        <button mat-raised-button routerLink="/register" class="mat-primary">Register</button>
+      </form>
+      <div *ngIf="error" class="error-message">{{error}}</div>
+  <br>
+  <button class="btn-svg" (click)="signInWithAzure()"><img src="https://learn.microsoft.com/en-us/azure/active-directory/develop/media/howto-add-branding-in-azure-ad-apps/ms-symbollockup_signin_light.svg"></button>
+  <p>{{ signInResultMessage }}</p>
+</div>
