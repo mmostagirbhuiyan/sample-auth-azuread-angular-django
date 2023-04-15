@@ -19,14 +19,17 @@ services:
     build:
       context: ./frontend
     container_name: ${PROJECT_NAME}--angular
+    ports:
+      - '4200:4200'
     volumes:
-      - ./frontend/dist/frontend:/var/www/html/dist
-      - ./frontend/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./frontend:/app
+      - /app/node_modules
+    command: ng serve --host 0.0.0.0
 
   django-api:
     build:
       context: ./backend
-    command: bash -c "mkdir -p /app/staticfiles && python manage.py collectstatic --noinput && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     container_name: ${PROJECT_NAME}--django
     ports:
       - '8000:8000'
