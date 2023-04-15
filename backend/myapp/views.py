@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from dotenv import load_dotenv, find_dotenv
+from django.http import JsonResponse
 
 load_dotenv(find_dotenv())
 
@@ -109,3 +110,11 @@ class AzureLoginView(APIView):
             'username': user.username,
             'role': user.role,
         }, status=status.HTTP_200_OK)
+
+
+#####-----------------------------Start of Customer facing API----------------------------------#####
+def interesting_data(request):
+    data = {
+        "fact": "The Earth revolves around the Sun in about 365.25 days."
+    }
+    return JsonResponse(data)

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../auth.service";
+import { AuthService } from '../auth.service';
+import { BackendConsumerService } from '../backend-consumer.service';
 
 @Component({
   selector: 'app-test',
@@ -8,8 +9,9 @@ import {AuthService} from "../auth.service";
 })
 export class TestComponent implements OnInit {
   currentUser: any;
+  interestingData: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private backendConsumerService: BackendConsumerService) { }
 
   ngOnInit(): void {
     this.authService.currentUser.subscribe(user => {
@@ -18,4 +20,9 @@ export class TestComponent implements OnInit {
     });
   }
 
+  fetchInterestingData(): void {
+    this.backendConsumerService.fetchInterestingData().subscribe(data => {
+      this.interestingData = data;
+    });
+  }
 }

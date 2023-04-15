@@ -1,5 +1,10 @@
 <div>
   <h2>Test Component</h2>
-  <h2>Welcome, <strong>{{ currentUser.username }}</strong>! </h2>
+  <h2>Welcome, <strong>{{ currentUser.username }}</strong>!</h2>
   <button mat-raised-button routerLink="/dashboard">Go Back</button>
+  <button mat-raised-button (click)="fetchInterestingData()">Fetch Interesting Data</button>
+  <div *ngIf="interestingData">
+    <h3>Interesting Fact:</h3>
+    <p>{{ interestingData.fact }}</p>
+  </div>
 </div>
