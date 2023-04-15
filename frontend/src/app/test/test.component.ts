@@ -11,6 +11,7 @@ export class TestComponent implements OnInit {
   currentUser: any;
   interestingData: any;
   airQualityData: any;
+  isLoading: boolean = false;
   displayedColumns: string[] = ['parameter', 'value', 'lastUpdated'];
 
   constructor(private authService: AuthService, private backendConsumerService: BackendConsumerService) {}
@@ -29,8 +30,16 @@ export class TestComponent implements OnInit {
   }
 
   getAirQuality() {
-    this.backendConsumerService.getAirQualityData().subscribe(data => {
-      this.airQualityData = data;
-    });
+    this.isLoading = true;
+    this.backendConsumerService.getAirQualityData().subscribe(
+      data => {
+        this.airQualityData = data;
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Error fetching air quality data:', error);
+        this.isLoading = false;
+      }
+    );
   }
 }

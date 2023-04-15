@@ -8,11 +8,14 @@
     <p>{{ interestingData.fact }}</p>
   </div>
   <button mat-raised-button (click)="getAirQuality()">Get Air Quality Data</button>
-  <div *ngIf="airQualityData">
-    <br>
+  <ng-container *ngIf="isLoading" style="padding-left: 10px">
+    <p>Loading air quality data...</p>
+  </ng-container>
+  <ng-container *ngIf="!isLoading && airQualityData" style="padding-left: 10px">
+    <br><br>
     <h2>Air Quality Data:</h2>
     <mat-card *ngFor="let result of airQualityData.results">
-      <h4>{{ result.location }}, {{ result.city }}, {{ result.country }}</h4>
+      <h4><strong>{{ result.location }}, {{ result.city }}, {{ result.country }}</strong></h4>
       <p>Latitude: {{ result.coordinates.latitude }}, Longitude: {{ result.coordinates.longitude }}</p>
       <mat-table [dataSource]="result.measurements" class="mat-elevation-z8">
         <ng-container matColumnDef="parameter">
@@ -31,5 +34,5 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
     </mat-card>
-  </div>
+  </ng-container>
 </div>
