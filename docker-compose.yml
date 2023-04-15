@@ -11,7 +11,6 @@ services:
       - "443:443"
     volumes:
       - static-data:/backend/staticfiles
-      - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - django-api
       - angular-apache2
