@@ -10,6 +10,7 @@ import { BackendConsumerService } from '../backend-consumer.service';
 export class TestComponent implements OnInit {
   currentUser: any;
   interestingData: any;
+  airQualityData: any;
 
   constructor(private authService: AuthService, private backendConsumerService: BackendConsumerService) { }
 
@@ -23,6 +24,13 @@ export class TestComponent implements OnInit {
   fetchInterestingData(): void {
     this.backendConsumerService.fetchInterestingData().subscribe(data => {
       this.interestingData = data;
+    });
+  }
+
+  getAirQuality(): void {
+    this.backendConsumerService.getAirQualityData().subscribe(data => {
+      this.airQualityData = data;
+      console.log(this.airQualityData);
     });
   }
 }

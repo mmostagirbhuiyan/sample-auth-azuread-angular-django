@@ -11,6 +11,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from dotenv import load_dotenv, find_dotenv
 from django.http import JsonResponse
+import requests
 
 load_dotenv(find_dotenv())
 
@@ -117,4 +118,14 @@ def interesting_data(request):
     data = {
         "fact": "The Earth revolves around the Sun in about 365.25 days."
     }
+    return JsonResponse(data)
+
+
+def air_quality(request):
+    url = "https://api.openaq.org/v1/latest?country=US&parameter=pm25"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+    else:
+        data = {"error": "Failed to fetch air quality data."}
     return JsonResponse(data)

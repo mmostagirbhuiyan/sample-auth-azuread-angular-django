@@ -13,4 +13,5 @@ urlpatterns = [
     path('api/auth/azure-login/', AzureLoginView.as_view(), name='azure_login'),
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/interesting-data/', views.interesting_data, name='interesting-data'),
+    path('api/air-quality/', views.air_quality, name='air-quality'),
 ]

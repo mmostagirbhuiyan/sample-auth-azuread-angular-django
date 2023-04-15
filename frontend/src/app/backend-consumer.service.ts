@@ -10,4 +10,8 @@ export class BackendConsumerService {
   fetchInterestingData() {
     return this.http.get<any>(`${baseBackendURL}/api/interesting-data/`);
   }
+
+  getAirQualityData() {
+    return this.http.get(`${baseBackendURL}/api/air-quality/`);
+  }
 }
