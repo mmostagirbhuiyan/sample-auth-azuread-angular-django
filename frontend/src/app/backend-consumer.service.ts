@@ -7,7 +7,7 @@ const baseBackendURL = process.env.NG_APP_BACKEND_URL;
 export class BackendConsumerService {
   constructor(private http: HttpClient) { }
 
-  fetchInterestingData() {
+  getInterestingData() {
     return this.http.get<any>(`${baseBackendURL}/api/interesting-data/`);
   }
 

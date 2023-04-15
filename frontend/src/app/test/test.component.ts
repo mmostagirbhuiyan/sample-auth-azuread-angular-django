@@ -11,8 +11,9 @@ export class TestComponent implements OnInit {
   currentUser: any;
   interestingData: any;
   airQualityData: any;
+  displayedColumns: string[] = ['parameter', 'value', 'lastUpdated'];
 
-  constructor(private authService: AuthService, private backendConsumerService: BackendConsumerService) { }
+  constructor(private authService: AuthService, private backendConsumerService: BackendConsumerService) {}
 
   ngOnInit(): void {
     this.authService.currentUser.subscribe(user => {
@@ -21,16 +22,15 @@ export class TestComponent implements OnInit {
     });
   }
 
-  fetchInterestingData(): void {
-    this.backendConsumerService.fetchInterestingData().subscribe(data => {
+  fetchInterestingData() {
+    this.backendConsumerService.getInterestingData().subscribe(data => {
       this.interestingData = data;
     });
   }
 
-  getAirQuality(): void {
+  getAirQuality() {
     this.backendConsumerService.getAirQualityData().subscribe(data => {
       this.airQualityData = data;
-      console.log(this.airQualityData);
     });
   }
 }

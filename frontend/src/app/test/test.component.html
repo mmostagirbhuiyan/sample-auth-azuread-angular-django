@@ -10,6 +10,25 @@
   <button mat-raised-button (click)="getAirQuality()">Get Air Quality Data</button>
   <div *ngIf="airQualityData">
     <h3>Air Quality Data:</h3>
-    <pre>{{ airQualityData | json }}</pre>
+    <mat-card *ngFor="let result of airQualityData.results">
+      <h4>{{ result.location }}, {{ result.city }}, {{ result.country }}</h4>
+      <p>Latitude: {{ result.coordinates.latitude }}, Longitude: {{ result.coordinates.longitude }}</p>
+      <mat-table [dataSource]="result.measurements" class="mat-elevation-z8">
+        <ng-container matColumnDef="parameter">
+          <mat-header-cell *matHeaderCellDef>Parameter</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.parameter }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="value">
+          <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.value }} {{ element.unit }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="lastUpdated">
+          <mat-header-cell *matHeaderCellDef>Last Updated</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{ element.lastUpdated | date:'short' }}</mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-card>
   </div>
 </div>
