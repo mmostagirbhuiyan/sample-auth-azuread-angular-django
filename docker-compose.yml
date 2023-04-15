@@ -1,35 +1,35 @@
 version: "3"
 
 services:
+
   reverse-proxy:
     build:
       context: ./nginx
-      dockerfile: Dockerfile
     container_name: ${PROJECT_NAME}--nginx
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - static-data:/backend/staticfiles
+      - '80:80'
+      - '443:443'
     depends_on:
       - django-api
       - angular-apache2
+    volumes:
+      - static-data:/backend/staticfiles
 
   angular-apache2:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     container_name: ${PROJECT_NAME}--angular
     volumes:
       - ./frontend/dist/frontend:/var/www/html/dist
+      - ./frontend/000-default.conf:/etc/apache2/sites-available/000-default.conf
 
   django-api:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+    command: bash -c "mkdir -p /app/staticfiles && python manage.py collectstatic --noinput && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
     container_name: ${PROJECT_NAME}--django
     ports:
-      - "8000"
+      - '8000:8000'
     volumes:
       - ./backend:/backend
       - static-data:/backend/staticfiles
