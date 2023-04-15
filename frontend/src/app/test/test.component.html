@@ -8,4 +8,8 @@
     <p>{{ interestingData.fact }}</p>
   </div>
   <button mat-raised-button (click)="getAirQuality()">Get Air Quality Data</button>
+  <div *ngIf="airQualityData">
+    <h3>Air Quality Data:</h3>
+    <pre>{{ airQualityData | json }}</pre>
+  </div>
 </div>
