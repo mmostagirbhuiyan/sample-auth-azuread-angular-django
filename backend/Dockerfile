@@ -12,6 +12,9 @@ COPY . $APP_HOME
 WORKDIR $APP_HOME
 RUN pip install -r requirements.txt
 
+# Add the following line to set the dummy SECRET_KEY
+ENV SECRET_KEY dummy_secret_key_for_build
+
 # Collect static files
 RUN python manage.py collectstatic --noinput
 ENV STATIC_ROOT=$APP_HOME/static
