@@ -18,13 +18,13 @@ services:
   angular-apache2:
     build:
       context: ./frontend
+      dockerfile: Dockerfile.dev
     container_name: ${PROJECT_NAME}--angular
     ports:
       - '4200:4200'
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    command: ng serve --host 0.0.0.0
 
   django-api:
     build:
