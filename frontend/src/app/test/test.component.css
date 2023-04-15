@@ -1,0 +1,41 @@
+.mat-raised-button ~ .mat-raised-button {
+  margin-left: 10px;
+}
+
+mat-form-field.mat-form-field {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  caret-color: black;
+}
+
+button {
+  margin-top: 4px;
+  height: 60px;
+  border-radius: 0px 4px 4px 0px;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: white;
+  color: black;
+}
+
+::ng-deep .mat-form-field-appearance-outline {
+  color: black !important;
+}
+.mat-form-field-outline-end {
+  border-radius: 0px !important;
+}
+
+::ng-deep .mat-form-field-outline {
+  color: black !important;
+  border-radius: 4px 0px 0px 4px !important;
+}
+::ng-deep .mat-form-field-outline-thick {
+  color: black !important;
+}
