@@ -18,18 +18,15 @@ services:
   angular-apache2:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.dev
     container_name: ${PROJECT_NAME}--angular
-    ports:
-      - '4200:4200'
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - ./frontend/dist/frontend:/var/www/html/dist
+      - ./frontend/000-default.conf:/etc/apache2/sites-available/000-default.conf
 
   django-api:
     build:
       context: ./backend
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "mkdir -p /app/staticfiles && python manage.py collectstatic --noinput && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
     container_name: ${PROJECT_NAME}--django
     ports:
       - '8000:8000'
