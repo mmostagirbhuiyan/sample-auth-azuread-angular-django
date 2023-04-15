@@ -3,7 +3,7 @@ version: "3"
 services:
   reverse-proxy:
     build:
-      context: .
+      context: ./nginx
       dockerfile: Dockerfile
     container_name: ${PROJECT_NAME}--nginx
     ports:
