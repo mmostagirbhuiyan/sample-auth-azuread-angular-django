@@ -1,0 +1,4 @@
+Dockerfile merge=ours
+*.dev merge=ours
+docker-compose.yaml merge=ours
+
