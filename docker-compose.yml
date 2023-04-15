@@ -37,4 +37,4 @@ services:
       - STATIC_ROOT=/backend/staticfiles
 
 volumes:
-  static_data:
+  static-data:
