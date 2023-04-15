@@ -12,6 +12,15 @@
     <p>Loading air quality data...</p>
   </ng-container>
   <ng-container *ngIf="!isLoading && airQualityData" style="padding-left: 10px">
+    <div>
+      <!-- ... -->
+      <mat-form-field appearance="outline" style="width: 300px;">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (keyup.enter)="filterAirQualityData()" />
+      </mat-form-field>
+      <button mat-raised-button (click)="filterAirQualityData()">Search</button>
+      <!-- ... -->
+    </div>
     <br><br>
     <h2>Air Quality Data:</h2>
     <mat-card *ngFor="let result of airQualityData.results">
