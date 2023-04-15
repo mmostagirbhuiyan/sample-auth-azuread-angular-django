@@ -11,3 +11,7 @@ RUN apt-get update && apt-get install -y \
 COPY . $APP_HOME
 WORKDIR $APP_HOME
 RUN pip install -r requirements.txt
+
+# Collect static files
+RUN python manage.py collectstatic --noinput
+ENV STATIC_ROOT=$APP_HOME/static
