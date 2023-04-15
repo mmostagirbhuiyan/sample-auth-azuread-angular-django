@@ -1,16 +1,12 @@
 FROM nginx:1.19.2-alpine
 
-# Install Certbot
 RUN apk add --no-cache certbot
 
-# Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Obtain SSL certificate from Let's Encrypt and copy to Nginx container
-RUN certbot certonly --webroot --webroot-path /var/www/html -d factsprovider.com -d www.factsprovider.com --email mmostagirbhuiyan@gmail.com --agree-tos --non-interactive && \
-    cp /etc/letsencrypt/live/factsprovider.com/fullchain.pem /etc/ssl/certs/nginx.crt && \
-    cp /etc/letsencrypt/live/factsprovider.com/privkey.pem /etc/ssl/private/nginx.key && \
-    rm -rf /var/cache/apk/*
+# Copy initial SSL certificate files
+COPY /etc/letsencrypt/live/factsprovider.com/fullchain.pem /etc/nginx/cert.pem
+COPY /etc/letsencrypt/live/factsprovider.com/privkey.pem /etc/nginx/cert.key
 
 # Add a script to renew the certificate and reload Nginx
 COPY renew-certificate.sh /etc/periodic/weekly/renew-certificate
